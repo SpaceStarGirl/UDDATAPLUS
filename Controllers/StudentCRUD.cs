@@ -4,23 +4,23 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace BuhuZoo.Controllers
+namespace UDDATA.Controllers
 {
-    class AnimalCRUD
+    class StudentCRUD
     {
         const string connectionString =
             "Data Source=.;" +
-            "Initial Catalog=BuhuzooDB;" +
+            "Initial Catalog=UDDATADB;" +
             "Integrated Security=True";
 
         public List<Student> Select(int studentId)
         {
             List<Student> studentList = new List<Student>();
             string sql =
-$"SELECT A.id, A.[Name], A.Gender, A.DateOfBirth, A.Color, A.Race " +
-$"FROM ZooKeeperAnimal AS Z " +
-$"JOIN animal AS A ON A.Id = Z.AnimalId " +
-$"WHERE Z.ZooKeeperId = {studentId}";
+$"SELECT S.id, S.[Name], S.DateOfBirth" +
+$"FROM Teacher AS T " +
+$"JOIN student AS S ON S.Id = T.Studentid " +
+$"WHERE T.TeacherId = {studentId}";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -53,7 +53,7 @@ $"WHERE Z.ZooKeeperId = {studentId}";
         public List<Student> Select()
         {
             List<Student> studentList = new List<Student>();
-            string sql = $"SELECT id, [name], gender, DateOfBirth, Color, Race FROM Animal";
+            string sql = $"SELECT id, [name], DateOfBirth, FROM Student";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -83,9 +83,9 @@ $"WHERE Z.ZooKeeperId = {studentId}";
         }
         public static int? Insert(Student student)
         {
-            string sql = "INSERT INTO Animal ([name], gender, DateOfBirth, color, race) " +
+            string sql = "INSERT INTO Student ([name], DateOfBirth) " +
                     "OUTPUT INSERTED.id " +
-                    "VALUES(@name, @gender, @DateOfBirth, @color, @race) ";
+                    "VALUES(@name, @DateOfBirth) ";
 
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
