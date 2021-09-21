@@ -7,25 +7,21 @@ using UDDATA.Views;
 
 namespace BuhuZoo.Controllers
 {
-    class ZooKeeperCRUD
+    class TeacherCRUD
     {
         private string connectionString;
 
-        public ZooKeeperCRUD() { }
-        public ZooKeeperCRUD(string connectionString)
+        public TeacherCRUD() { }
+        public TeacherCRUD(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
-        //const string connectionString =
-        //    "Data Source=.;" +
-        //    "Initial Catalog=BuhuzooDB;" +
-        //    "Integrated Security=True";
 
         public List<Teacher> Select()
         {
             List<Teacher> teacherList = new List<Teacher>();
-            string sql = $"SELECT TeacherId, TeacherName, DateOfBirth,FROM ZooKeeper";
+            string sql = $"SELECT TeacherId, TeacherName, DateOfBirth,FROM Teacher";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -78,8 +74,7 @@ namespace BuhuZoo.Controllers
                 }
                 catch (Exception ex)
                 {
-                    // We should log the error somewhere, 
-                    // for this example let's just show a message
+
                     Console.WriteLine("ERROR:" + ex.Message);
                     return null;
                 }
